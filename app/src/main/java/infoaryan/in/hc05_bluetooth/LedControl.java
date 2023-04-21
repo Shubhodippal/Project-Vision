@@ -9,6 +9,7 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,7 +20,7 @@ import java.util.UUID;
 
 public class LedControl extends AppCompatActivity {
 
-    Button btn1, btn2, btn3, btn4, btn5, btnDis;
+    Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btnDis;
     String address = null;
     TextView lumn;
     private ProgressDialog progress;
@@ -42,44 +43,164 @@ public class LedControl extends AppCompatActivity {
         //For additional actions to be performed
         btn3 =  findViewById(R.id.button5);
         btn4 =  findViewById(R.id.button6);
+        btn6 = findViewById(R.id.button8);
+        btn7 = findViewById(R.id.button9);
         btn5 =  findViewById(R.id.button7);
         btnDis = findViewById(R.id.button4);
         lumn =  findViewById(R.id.textView2);
-
+        final boolean[] buttonPressed = {false};
         new LedControl.ConnectBT().execute();
 
-        btn1.setOnClickListener(new View.OnClickListener() {
+        btn1.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick (View v) {
-                sendSignal("1");
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+
+                        if (!buttonPressed[0]) {
+                            sendSignal("1");
+                            buttonPressed[0] = true;
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if (buttonPressed[0]) {
+                            sendSignal("0");
+                            buttonPressed[0] = false;
+                        }
+                        break;
+                }
+                return true;
             }
         });
 
-        btn2.setOnClickListener(new View.OnClickListener() {
+        btn2.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick (View v) {
-                sendSignal("2");
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+
+                        if (!buttonPressed[0]) {
+                            sendSignal("2");
+                            buttonPressed[0] = true;
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if (buttonPressed[0]) {
+                            sendSignal("0");
+                            buttonPressed[0] = false;
+                        }
+                        break;
+                }
+                return true;
             }
         });
 
-        btn3.setOnClickListener(new View.OnClickListener() {
+        btn3.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick (View v) {
-                sendSignal("3");
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+
+                        if (!buttonPressed[0]) {
+                            sendSignal("3");
+                            buttonPressed[0] = true;
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if (buttonPressed[0]) {
+                            sendSignal("0");
+                            buttonPressed[0] = false;
+                        }
+                        break;
+                }
+                return true;
+            }
+        });
+        btn4.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+
+                        if (!buttonPressed[0]) {
+                            sendSignal("4");
+                            buttonPressed[0] = true;
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if (buttonPressed[0]) {
+                            sendSignal("0");
+                            buttonPressed[0] = false;
+                        }
+                        break;
+                }
+                return true;
             }
         });
 
-        btn4.setOnClickListener(new View.OnClickListener() {
+        btn5.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick (View v) {
-                sendSignal("4");
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+
+                        if (!buttonPressed[0]) {
+                            sendSignal("5");
+                            buttonPressed[0] = true;
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if (buttonPressed[0]) {
+                            sendSignal("0");
+                            buttonPressed[0] = false;
+                        }
+                        break;
+                }
+                return true;
             }
         });
 
-        btn5.setOnClickListener(new View.OnClickListener() {
+        btn6.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick (View v) {
-                sendSignal("5");
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+
+                        if (!buttonPressed[0]) {
+                            sendSignal("6");
+                            buttonPressed[0] = true;
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if (buttonPressed[0]) {
+                            sendSignal("0");
+                            buttonPressed[0] = false;
+                        }
+                        break;
+                }
+                return true;
+            }
+        });
+
+        btn7.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+
+                        if (!buttonPressed[0]) {
+                            sendSignal("7");
+                            buttonPressed[0] = true;
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if (buttonPressed[0]) {
+                            sendSignal("0");
+                            buttonPressed[0] = false;
+                        }
+                        break;
+                }
+                return true;
             }
         });
 
@@ -150,7 +271,7 @@ public class LedControl extends AppCompatActivity {
                 msg("Connection Failed. Is it a SPP Bluetooth? Try again.");
                 finish();
             } else {
-                msg("Connected");
+                msg("Connected to the robot \nContinue to project VISION ");
                 isBtConnected = true;
             }
 
